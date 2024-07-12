@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <!-- Bootstrap CSS for styling (optional) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for password meter -->
+    <style>
+        #password-strength-meter {
+            height: 10px;
+            margin-bottom: 10px;
+        }
+
+        .password-strength-meter-bar {
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .password-strength-meter-bar-weak {
+            background-color: red;
+        }
+
+        .password-strength-meter-bar-medium {
+            background-color: orange;
+        }
+
+        .password-strength-meter-bar-strong {
+            background-color: green;
+        }
+      body{
+        padding-left: 300px;
+        padding-right: 300px;
+        background-color: rgb(188, 198, 201);
+       
+      }
+
+    </style>
+</head>
+
+<body >
+    <div class="container mt-5">
+        <h2 class="mb-4">Sign Up Form</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label>Gender</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                    <label class="form-check-label" for="genderMale">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" required>
+                    <label class="form-check-label" for="genderFemale">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="address" rows="3" placeholder="Enter your address"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Enter phone number">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <div id="password-strength-meter">
+                <div class="password-strength-meter-bar password-strength-meter-bar-weak"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+
+    <!-- JavaScript file inclusion -->
+    <script src="script.js"></script>
+</body>
+
+</html>

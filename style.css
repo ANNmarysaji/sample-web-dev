@@ -1,0 +1,269 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a; /* Dark background */
+    color: #fff; /* Light text */
+    line-height: 1.6;
+    margin: 0;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-left: 250px;
+}
+.container2 {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+   
+}
+header {
+    position: relative;
+    height: 300px; /* Adjust height as needed */
+    background-color: #222; /* Fallback color */
+    color: #fff; /* Light text for contrast */
+    text-align: center;
+    padding: 50px 0;
+}
+
+.header-content {
+    position: relative; /* Ensure positioning context for absolute child */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.header-image {
+    position: absolute;
+    top: 20px; /* Adjust top position as needed */
+    left: 130px; /* Adjust left position as needed */
+    width: 150px; /* Adjust width as needed */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    z-index: 1; /* Ensure image appears above other content */
+
+}
+
+.header-image img {
+    max-width: 100%; /* Ensure the image stays within the header height */
+    height: 50%; /* Maintain aspect ratio */
+    border-radius: 8px; /* Optional: Rounded corners */
+}
+
+
+.header-text {
+    text-align: center;
+    flex: 1 1 auto; /* Allow text to grow */
+}
+.nav-icon {
+    position: fixed;
+    top: 20px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+    cursor: pointer;
+    z-index: 2; /* Ensure icon appears above other content */
+}
+
+.nav-icon span {
+    font-size: 24px; /* Adjust icon size as needed */
+}
+
+.vertical-nav {
+    position: absolute;
+    top: 0;
+    right: -200px; /* Hide the navigation panel initially */
+    background-color: #333;
+    width: 200px;
+    height: 100vh; /* Full height of viewport */
+    overflow-y: auto; /* Enable scrolling if content exceeds viewport height */
+    padding-top: 20px;
+    transition: right 0.3s ease; /* Smooth transition on right position */
+}
+
+.vertical-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.vertical-nav ul li {
+    margin-bottom: 10px;
+}
+
+.vertical-nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.vertical-nav ul li a:hover {
+    background-color: #555;
+}
+
+.nav-icon {
+    position: fixed;
+    top: 20px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+    cursor: pointer;
+    z-index: 2; /* Ensure icon appears above other content */
+}
+
+.nav-icon span {
+    font-size: 24px; /* Adjust icon size as needed */
+}
+
+.vertical-nav {
+    position: fixed;
+    top: 20px; /* Adjust top position as needed */
+    right: -200px; /* Start off-screen */
+    background-color: #333;
+    width: 200px;
+    height: 100vh; /* Full height of viewport */
+    overflow-y: auto; /* Enable scrolling if content exceeds viewport height */
+    padding-top: 20px;
+    transition: right 0.3s ease; /* Smooth transition on right position */
+}
+
+.vertical-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.vertical-nav ul li {
+    margin-bottom: 10px;
+}
+
+.vertical-nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.vertical-nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Show navigation panel when hovering over .nav-icon */
+.nav-icon:hover + .vertical-nav,
+.vertical-nav:hover {
+    right: 20px; /* Adjust position to show */
+}
+
+/* Hide navigation panel after some time */
+.vertical-nav {
+    transition-delay: 1s; /* Delay transition for 1 second */
+}
+
+.vertical-nav:hover {
+    transition-delay: 0s; /* No delay if hovering over */
+}
+
+
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.5em;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+section p {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+
+.portfolio-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.portfolio-item {
+    width: calc(25% - 20px);
+    margin-bottom: 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.1);
+}
+
+.portfolio-item h3 {
+    margin-top: 10px;
+    font-size: 1.8em;
+}
+
+.portfolio-item p {
+    font-size: 1.1em;
+}
+
+footer {
+    background-color: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5em;
+    }
+    header p {
+        font-size: 1.3em;
+    }
+    section p {
+        font-size: 1em;
+    }
+    .portfolio-item {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-item {
+        width: 100%;
+    }
+}
