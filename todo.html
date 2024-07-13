@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+            background-image: url('https://img.freepik.com/premium-photo/creative-workspace-with-sticky-note-houseplant-supplies_35674-9406.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(154, 31, 211, 0.5); /* Adjust opacity and color as needed */
+            animation: backgroundAnimation 30s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { 
+                opacity: 0.2;
+            }
+            50% { 
+                opacity: 0.5;
+            }
+            100% { 
+                opacity: 0.2;
+            }
+        }
+
+        .todo-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .todo-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .todo-form {
+            margin-bottom: 20px;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .todo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-item .actions {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+        }
+
+        .done {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container todo-container">
+        <div class="todo-header">
+            <h1>Todo List</h1>
+            <a href="index.html" class="btn btn-danger">Logout</a>
+        </div>
+        
+        <!-- Todo input form -->
+        <form id="todo-form" class="todo-form">
+            <div class="input-group">
+                <input type="text" id="todo-input" class="form-control" placeholder="Enter a new todo..." required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Add Todo</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Todo list -->
+        <ul id="todo-list" class="todo-list">
+            <!-- Todos will be dynamically added here -->
+        </ul>
+    </div>
+
+    <!-- Confetti library script -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        // Function to retrieve todos from localStorage
+        function getTodos() {
+            return JSON.parse(localStorage.getItem('todos')) || [];
+        }
+
+        // Function to save todos to localStorage
+        function saveTodos(todos) {
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+
+        // Define a variable to store todos (retrieve from localStorage)
+        let todos = getTodos();
+
+        // Function to render todos
+        function renderTodos() {
+            const todoList = document.getElementById('todo-list');
+            todoList.innerHTML = '';
+
+            todos.forEach((todo, index) => {
+                const todoItem = document.createElement('li');
+                todoItem.className = 'todo-item';
+
+                // Strike through the todo if it is done
+                if (todo.done) {
+                    todoItem.classList.add('done');
+                }
+
+                todoItem.innerHTML = `
+                    <span>${todo.text}</span>
+                    <div class="actions">
+                        <button class="btn btn-sm btn-success mr-2" onclick="markDone(${index})">Done</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTodo(${index})">Delete</button>
+                    </div>
+                `;
+
+                todoList.appendChild(todoItem);
+            });
+
+            // Check if all todos are done to trigger confetti
+            if (todos.every(todo => todo.done)) {
+                triggerConfetti();
+            }
+        }
+
+        // Function to add a new todo
+        function addTodo(text) {
+            todos.push({ text: text, done: false });
+            saveTodos(todos); // Save todos to localStorage
+            renderTodos();
+        }
+
+        // Function to mark a todo as done
+        function markDone(index) {
+            todos[index].done = true;
+            saveTodos(todos); // Save todos to localStorage
+            renderTodos();
+        }
+
+        // Function to delete a todo
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            saveTodos(todos); // Save todos to localStorage
+            renderTodos();
+        }
+
+        // Event listener for form submission
+        document.getElementById('todo-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const todoInput = document.getElementById('todo-input');
+            const todoText = todoInput.value.trim();
+            if (todoText !== '') {
+                addTodo(todoText);
+                todoInput.value = '';
+            }
+        });
+
+        // Function to trigger confetti animation
+        function triggerConfetti() {
+            const duration = 15 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                }));
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                }));
+            }, 250);
+        }
+
+        // Initial rendering of todos
+        renderTodos();
+    </script>
+</body>
+</html>
